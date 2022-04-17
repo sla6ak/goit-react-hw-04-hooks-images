@@ -3,7 +3,7 @@ import React from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import propTypes from 'prop-types';
 
-const ImageGallery = ({ onModalOpen, arreyImg }) => {
+export const ImageGallery = ({ onModalOpen, arreyImg }) => {
   return (
     <ul onClick={onModalOpen} className={s.imageGallery}>
       {arreyImg.map(impg => {
@@ -19,7 +19,6 @@ const ImageGallery = ({ onModalOpen, arreyImg }) => {
     </ul>
   );
 };
-export default ImageGallery;
 
 ImageGallery.propTypes = {
   onModalOpen: propTypes.func,

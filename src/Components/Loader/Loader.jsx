@@ -1,7 +1,7 @@
 import s from './Loader.module.css';
 import { BallTriangle } from 'react-loader-spinner';
 
-const Loader = () => {
+export const Loader = () => {
   return (
     <div className={s.loader}>
       <BallTriangle
@@ -13,5 +13,3 @@ const Loader = () => {
     </div>
   );
 };
-
-export default Loader;

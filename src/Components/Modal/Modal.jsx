@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-export default class Modal extends Component {
+export class Modal extends Component {
   keyDownClouse = e => {
     if (e.code === 'Escape') {
       this.props.onModalClouse();
