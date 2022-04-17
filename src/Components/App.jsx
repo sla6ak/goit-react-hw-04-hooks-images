@@ -76,7 +76,7 @@ export const App = () => {
 
   useEffect(()=>{
     findImg()
-  },[pages])
+  },[pages, searchWord])
 
   return (<div className={s.papers}>
            <Searchbar setSearchWord={newSearchWord} />
