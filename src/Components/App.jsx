@@ -44,8 +44,6 @@ export const App = () => {
   const onModalClouse = () => {
     setModal(null)
   };
-
-  
   
   useEffect(()=>{
     setArreyImg([])
@@ -53,14 +51,9 @@ export const App = () => {
 
   useEffect(()=>{
     if(searchWord===""){return}
-    
-  const findImg = async() => {
-    setSceleton(true)//рендерим загрузчик
-    try{
-      const findImgsJSON = await fetch(
-        fetchGalery(searchWord, pages)
-      );
-      const findImgs = await findImgsJSON.json();
+
+    // обработка информации для пользователя
+    const info = (findImgs)=>{
       if (findImgs.totalHits === 0) {
         setButtonIs(false);
         toast.warning(`We cant finde nosing`);
@@ -73,13 +66,23 @@ export const App = () => {
         setButtonIs(false);
         toast.warning(`We finde last imges of ${findImgs.totalHits} imeges`);
       }
-      renderNew(findImgs.hits)
-    }catch(err){
-      setError(err)
-      console.log(error);
-      toast.error(`Happend ${err}`);
     }
-  }
+    
+    const findImg = async() => {
+      setSceleton(true)//рендерим загрузчик
+      try{
+        const findImgsJSON = await fetch(
+          fetchGalery(searchWord, pages)
+        );
+        const findImgs = await findImgsJSON.json();
+        info(findImgs)
+        renderNew(findImgs.hits)
+      }catch(err){
+        setError(err)
+        console.log(error);
+        toast.error(`Happend ${err}`);
+      }
+    }
 
     findImg()
   },[error, pages, searchWord])
