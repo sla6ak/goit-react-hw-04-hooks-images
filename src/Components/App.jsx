@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import s from './App.module.css';
 import {ImageGallery} from './ImageGallery/ImageGallery';
 import {Searchbar} from './Searchbar/Searchbar';
 import {Button} from './Button/Button';
@@ -22,7 +21,6 @@ export const App = () => {
     //это функция пропс для поискового запроса
     //при новом поисковом слове скинем страницу в первую.
   const newSearchWord = searchWord => {
-    setArreyImg([])
     setSearchWord(searchWord);
     setPages(1)
   };
@@ -35,7 +33,8 @@ export const App = () => {
 
     // функции отрисовки новых карточек
   const renderNew = arreyImgNew => {
-    setArreyImg((pS)=>[...pS,...arreyImgNew])
+    setSceleton(false)//скрываем загрузчик
+    setArreyImg((pS)=>[...pS, ...arreyImgNew])
   };
   // обработчик модального окна
   const  onModalOpen = e => {
@@ -71,14 +70,19 @@ export const App = () => {
       console.log(error);
       toast.error(`Happend ${err}`);
     }
-    setSceleton(false)//скрываем загрузчик
   }
+  
+  
+  useEffect(()=>{
+    setArreyImg([])
+  },[searchWord])
 
   useEffect(()=>{
+    if(searchWord===""){return}
     findImg()
   },[pages, searchWord])
 
-  return (<div className={s.papers}>
+  return (<>
            <Searchbar setSearchWord={newSearchWord} />
            {arreyImg.length > 0 && <ImageGallery
              onModalOpen={onModalOpen}
@@ -93,5 +97,5 @@ export const App = () => {
              />
            }
            <ToastContainer autoClose={3000}/>
-          </div>)
+          </>)
 }

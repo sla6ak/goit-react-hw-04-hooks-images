@@ -1,11 +1,11 @@
-import s from './ImageGallery.module.css';
+import { BoxImgs } from './ImageGallery.styled';
 import React from 'react';
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import {ImageGalleryItem} from '../ImageGalleryItem/ImageGalleryItem';
 import propTypes from 'prop-types';
 
 export const ImageGallery = ({ onModalOpen, arreyImg }) => {
   return (
-    <ul onClick={onModalOpen} className={s.imageGallery}>
+    <BoxImgs onClick={onModalOpen}>
       {arreyImg.map(impg => {
         return (
           <ImageGalleryItem
@@ -16,7 +16,7 @@ export const ImageGallery = ({ onModalOpen, arreyImg }) => {
           />
         );
       })}
-    </ul>
+    </BoxImgs>
   );
 };
 

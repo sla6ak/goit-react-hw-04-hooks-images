@@ -1,29 +1,31 @@
-import s from './Modal.module.css';
+import { OverlayModal, ModalBox, BigMpeg } from './Modal.styled';
 import { createPortal } from 'react-dom';
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import propTypes from 'prop-types';
 
-export class Modal extends Component {
-  keyDownClouse = e => {
+export const Modal =({onModalClouse,imgFull})=> {
+  const keyDownClouse = e => {
     if (e.code === 'Escape') {
       this.props.onModalClouse();
     }
   };
-  componentDidMount(pProp, pState) {
-    window.addEventListener('keydown', this.keyDownClouse);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.keyDownClouse);
-  }
-  render() {
-    return createPortal(
-      <div className={s.overlay} onClick={this.props.onModalClouse}>
-        <div className={s.modal}>
-          <img className={s.img} src={this.props.imgFull} alt="" />
-        </div>
-      </div>,
-      document.querySelector('#modal')
-    );
-  }
+
+  useEffect(()=>{
+    window.addEventListener('keydown', keyDownClouse);
+  },[])
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('keydown', keyDownClouse);
+  // }
+
+  return createPortal(
+    <OverlayModal onClick={onModalClouse}>
+      <ModalBox>
+        <BigMpeg  src={imgFull} alt="" />
+      </ModalBox>
+    </OverlayModal>,
+    document.querySelector('#modal')
+  );
 }
-Modal.propTypes = { onModalClouse: propTypes.func };
+
+Modal.propTypes = { onModalClouse: propTypes.func, imgFull: propTypes.string };

@@ -1,21 +1,20 @@
-import s from './ImageGalleryItem.module.css';
+
 import React from 'react';
 import propTypes from 'prop-types';
+import { ElementGallery, Impeg } from './ImageGalleryItem.styled';
 
-const ImageGalleryItem = ({ webformatURL, tags, largeImageURL }) => {
+export const ImageGalleryItem = ({ webformatURL, tags, largeImageURL }) => {
   return (
-    <li className={s.galleryItem}>
-      <img
+    <ElementGallery>
+      <Impeg
         src={webformatURL}
         data-img={largeImageURL}
         alt={tags}
-        className={s.galleryImg}
         width={500}
       />
-    </li>
+    </ElementGallery>
   );
-};
-export default ImageGalleryItem;
+}
 
 ImageGalleryItem.propTypes = {
   webformatURL: propTypes.string,

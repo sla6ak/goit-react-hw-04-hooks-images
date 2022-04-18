@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Searchbar.module.css';
+import { Header, SerchForm, SerchButton, InputWord } from './Searchbar.styled';
 import { AiOutlineSearch } from 'react-icons/ai';
 import propTypes from 'prop-types';
 
@@ -24,13 +24,12 @@ export class Searchbar extends React.Component {
 
   render() {
     return (
-      <header className={s.searchbar}>
-        <form className={s.form} onSubmit={this.formSubmit}>
-          <button type="submit" className={s.button}>
-            <AiOutlineSearch className={s.search} />
-          </button>
-          <input
-            className={s.input}
+      <Header>
+        <SerchForm onSubmit={this.formSubmit}>
+          <SerchButton type="submit">
+            <AiOutlineSearch style={{color: "rgb(250, 250, 250)", width: "100%", height: "100%"}} />
+          </SerchButton>
+          <InputWord
             type="text"
             autoComplete="off"
             autoFocus
@@ -38,8 +37,8 @@ export class Searchbar extends React.Component {
             onInput={this.onInpurWord}
             value={this.state.searchWord}
           />
-        </form>
-      </header>
+        </SerchForm>
+      </Header>
     );
   }
 }
