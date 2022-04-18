@@ -45,6 +45,15 @@ export const App = () => {
     setModal(null)
   };
 
+  
+  
+  useEffect(()=>{
+    setArreyImg([])
+  },[searchWord])
+
+  useEffect(()=>{
+    if(searchWord===""){return}
+    
   const findImg = async() => {
     setSceleton(true)//рендерим загрузчик
     try{
@@ -71,19 +80,12 @@ export const App = () => {
       toast.error(`Happend ${err}`);
     }
   }
-  
-  
-  useEffect(()=>{
-    setArreyImg([])
-  },[searchWord])
 
-  useEffect(()=>{
-    if(searchWord===""){return}
     findImg()
-  },[pages, searchWord])
+  },[error, pages, searchWord])
 
   return (<>
-           <Searchbar setSearchWord={newSearchWord} />
+           <Searchbar setSearchWordProps={newSearchWord} />
            {arreyImg.length > 0 && <ImageGallery
              onModalOpen={onModalOpen}
              arreyImg={arreyImg}

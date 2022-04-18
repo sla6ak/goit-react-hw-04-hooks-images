@@ -3,23 +3,33 @@ import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import propTypes from 'prop-types';
 
-export const Modal =({onModalClouse,imgFull})=> {
-  const keyDownClouse = e => {
-    if (e.code === 'Escape') {
-      this.props.onModalClouse();
+export const Modal =({onModalClouse, imgFull})=> {
+  
+  const mouseDownClouse = e => {
+    if (e.target === e.currentTarget) {
+      onModalClouse();
     }
   };
 
   useEffect(()=>{
+    const keyDownClouse = e => {
+      if (e.code === 'Escape') {
+        onModalClouse();
+      }
+    };
+
     window.addEventListener('keydown', keyDownClouse);
-  },[])
+    return () => {
+      window.removeEventListener('keydown', keyDownClouse);
+    };
+  },[onModalClouse])
 
   // componentWillUnmount() {
   //   window.removeEventListener('keydown', keyDownClouse);
   // }
 
   return createPortal(
-    <OverlayModal onClick={onModalClouse}>
+    <OverlayModal onClick={mouseDownClouse}>
       <ModalBox>
         <BigMpeg  src={imgFull} alt="" />
       </ModalBox>
